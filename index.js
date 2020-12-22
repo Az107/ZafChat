@@ -23,7 +23,13 @@ io.on('connection', (socket) => {
 
 
 let port = process.env.PORT || 8080; 
-http.listen( port, () => {
+http.listen( port,{
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Access-Control-Allow-Origin"]
+  }
+}, () => {
   console.log('listening on *:'+ port);
 });
 
