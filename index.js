@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
 });
 
 
-let port = process.env.PORT | 8080
+let port = process.env.PORT;
 http.listen( port, () => {
   console.log('listening on *:'+ port);
 });
