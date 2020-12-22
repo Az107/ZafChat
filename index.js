@@ -1,9 +1,14 @@
-var app = require('express')();
+const express = require('express');
+const app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+app.use(express.static('public'));
+app.use('/css', express.static(__dirname + 'public/css'))
+app.use('/js', express.static(__dirname + 'public/js'))
+app.use('/img', express.static(__dirname + 'public/images'))
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + "/web/index.html");
+  res.sendFile(__dirname + "/public/");
 });
 
 io.on('connection', (socket) => {
@@ -14,8 +19,8 @@ io.on('connection', (socket) => {
 });
 
 
-
-http.listen(process.env.PORT, () => {
-  console.log('listening on *:'+process.env.PORT);
+let port = process.env.PORT | 8080
+http.listen( port, () => {
+  console.log('listening on *:'+ port);
 });
 
