@@ -1,7 +1,14 @@
 const express = require('express');
 const app = express();
 var http = require('http').createServer(app);
-var io = require('socket.io')(http);
+var io = require('socket.io')(http, {
+  cors: {
+    origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
+  }
+});
 
 
 
@@ -23,13 +30,7 @@ io.on('connection', (socket) => {
 
 
 let port = process.env.PORT || 8080; 
-http.listen( port,{
-  cors: {
-    origin: "*",
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Access-Control-Allow-Origin"]
-  }
-}, () => {
+http.listen( port,() => {
   console.log('listening on *:'+ port);
 });
 
