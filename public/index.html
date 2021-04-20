@@ -5,27 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script>
-    let username = prompt("username");
-  $(function () {
-    var socket = io("wss://zafchat.herokuapp.com",{
-  withCredentials: false,
-  extraHeaders: {
-    "Access-Control-Allow-Origin": "*"
-  }
-});
-    $('form').submit(function(e){
-      e.preventDefault(); // prevents page reloading
-      socket.emit('msg', username + "> " +  $('#m').val());
-      $('#m').val('');
-      return false;
-    });
-    socket.on('msg', function(msg){
-        $('#messages').append($('<li>').text(msg));
-        $("html, body").animate({ scrollTop: $(document).height() }, 1000);
-    });
-  });
-</script>
+<script src="client.js" ></script>
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="mini-default.css">
 
@@ -34,7 +14,7 @@
     <ul id="messages"></ul>
     <footer class="responsive-margin responsive-padding sticky">
       <form action="">
-        <input  class="responsive-margin" id="m" autocomplete="off" placeholder="message" /><button class="primary" onclick="send()" >Send</button>
+        <input class="responsive-margin" id="m" autocomplete="off" placeholder="message" /><button class="primary" >Send</button>
       </form>
     </footer>
 

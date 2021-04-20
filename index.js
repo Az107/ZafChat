@@ -11,10 +11,20 @@ var io = require('socket.io')(http, {
 });
 
 
-
-app.use(express.static('public'));
-
+app.use(express.static('public/resources'));
 app.get('/', (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  id = Math.floor(Math.random() * 100001); 
+  res.redirect("/" + id);
+});
+
+app.get('/:id',(req,res) => {
+  if (req.params.id == null){
+    id = Math.floor(Math.random() * 101); 
+    res.redirect("/" + id);
+  }
+
   res.statusCode = 200;
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -22,9 +32,13 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
-  socket.on("msg", (msg) => {
-    io.emit("msg",msg);
+  let socketId = socket.handshake.auth.id;
+  console.log('a user connected ' + socketId);
+  socket.join(socketId);
+  socket.on("msg", ({content, to}) => {
+    // io.emit("msg",content);
+    console.log("sending to " + to )
+    io.to(to).emit("msg",content);
   });
 });
 
