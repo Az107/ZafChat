@@ -3,7 +3,7 @@ let id = window.location.pathname;
 
 $(function () {
   console.log(window.location.href);
-  var socket = io("ws://" + window.location.host, {
+  var socket = io("wss://" + window.location.host, {
     extraHeaders: {
       "Access-Control-Allow-Origin": "*"
     }
