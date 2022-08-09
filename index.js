@@ -11,7 +11,7 @@ var io = require('socket.io')(http, {
 });
 
 
-app.use(express.static('public/resources'));
+app.use(express.static('public'));
 app.get('/', (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
