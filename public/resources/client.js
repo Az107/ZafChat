@@ -8,7 +8,7 @@ $(function () {
     console.log("permission granted!");
   });
   console.log(window.location.href);
-  var socket = io("ws://" + window.location.host, {
+  var socket = io("wss://" + window.location.host, {
     extraHeaders: {
       "Access-Control-Allow-Origin": "*"
     }
